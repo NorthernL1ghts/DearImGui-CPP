@@ -1,0 +1,84 @@
+# Binaries
+/Binaries/
+/Intermediates/
+/build/
+/x64/
+
+# Visual Studio
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.vcxproj.includecache
+*.vcxproj.includecache.local
+*.ipch
+*.idb
+*.ilk
+*.pdb
+*.tlog
+*.log
+*.obj
+*.pch
+*.exp
+*.lib
+*.sdf
+*.opensdf
+*.exe
+*.dll
+*.cachefile
+
+# Visual Studio folder
+*vs/
+
+# Visual Studio Code
+.vscode/
+
+# CMake files
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
+# Compiled object files
+*.o
+*.obj
+*.lo
+*.la
+*.al
+*.libs
+*.dll
+*.so
+*.dylib
+*.exe
+*.out
+
+# Editor temporary files
+*.swo
+*.swp
+*~
+
+# Logs and databases
+*.log
+*.sql
+*.sqlite
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# User-specific settings
+*.user
+*.userosscache
+*.sln.docstates
+
+# ImGui files (if you want to exclude them)
+/libs/imgui/examples/imgui_impl_*_*
+
+# Windows specific files
+*.pdb
+*.ilk
+*.ipdb
+*.iobj
+*.manifest
+*.tlog
+*.lastbuildstate
