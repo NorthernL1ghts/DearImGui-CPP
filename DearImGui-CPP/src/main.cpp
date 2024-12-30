@@ -3,6 +3,8 @@
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
 #include <stdio.h>
+#include <vector>
+#include <string>
 
 // Error callback function
 static void glfw_error_callback(int error, const char* description)
@@ -19,7 +21,7 @@ int main(int, char**)
 
 	// Create window with graphics context
 	const char* glsl_version = "#version 130";
-	GLFWwindow* window = glfwCreateWindow(1280, 720, "Dear ImGui Example", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(1280, 720, "Dear ImGui Advanced Example", NULL, NULL);
 	if (window == NULL)
 		return -1;
 	glfwMakeContextCurrent(window);
@@ -47,6 +49,11 @@ int main(int, char**)
 	ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 	float f = 0.0f;
 	int counter = 0;
+	bool show_app_metrics = false;
+	bool show_app_style_editor = false;
+	bool show_app_about = false;
+	std::vector<std::string> items = { "Apple", "Banana", "Cherry", "Date", "Elderberry", "Fig", "Grapes" };
+	int item_current_idx = 0;
 
 	// Main loop
 	while (!glfwWindowShouldClose(window))
@@ -63,20 +70,60 @@ int main(int, char**)
 		if (show_demo_window)
 			ImGui::ShowDemoWindow(&show_demo_window);
 
+		// Show application metrics window
+		if (show_app_metrics)
+			ImGui::ShowMetricsWindow(&show_app_metrics);
+
+		// Show application style editor window
+		if (show_app_style_editor)
+		{
+			ImGui::Begin("Style Editor", &show_app_style_editor);
+			ImGui::ShowStyleEditor();
+			ImGui::End();
+		}
+
+		// Show application about window
+		if (show_app_about)
+		{
+			ImGui::Begin("About Dear ImGui", &show_app_about, ImGuiWindowFlags_AlwaysAutoResize);
+			ImGui::Text("Dear ImGui, %s", IMGUI_VERSION);
+			ImGui::Separator();
+			ImGui::Text("By Omar Cornut and all dear imgui contributors.");
+			ImGui::End();
+		}
+
 		// Show a simple window
 		{
 			ImGui::Begin("Hello, world!");
 			ImGui::Text("This is some useful text.");
 			ImGui::Checkbox("Demo Window", &show_demo_window);
 			ImGui::Checkbox("Another Window", &show_another_window);
+			ImGui::Checkbox("App Metrics", &show_app_metrics);
+			ImGui::Checkbox("Style Editor", &show_app_style_editor);
+			ImGui::Checkbox("About", &show_app_about);
 
 			ImGui::SliderFloat("float", &f, 0.0f, 1.0f); // Edit 1 float using a slider from 0.0f to 1.0f
 			ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
 
-			if (ImGui::Button("Button"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
+			if (ImGui::Button("Button")) // Buttons return true when clicked (most widgets return true when edited/activated)
 				counter++;
 			ImGui::SameLine();
 			ImGui::Text("counter = %d", counter);
+
+			// Combo box
+			const char* combo_preview_value = items[item_current_idx].c_str(); // Pass in the preview value visible before opening the combo (it could be anything)
+			if (ImGui::BeginCombo("combo", combo_preview_value))
+			{
+				for (int n = 0; n < items.size(); n++)
+				{
+					const bool is_selected = (item_current_idx == n);
+					if (ImGui::Selectable(items[n].c_str(), is_selected))
+						item_current_idx = n;
+					if (is_selected)
+						ImGui::SetItemDefaultFocus();
+				}
+				ImGui::EndCombo();
+			}
 
 			ImGui::End();
 		}
