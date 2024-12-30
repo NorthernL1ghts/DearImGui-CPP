@@ -1,4 +1,7 @@
 @echo off
+rem Navigate to the root directory
+cd ..
+
 rem Create build directory if it doesn't exist
 if not exist build (
     mkdir build

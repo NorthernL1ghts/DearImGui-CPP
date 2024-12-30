@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Navigate to the root directory
+cd ..
+
 # Create build directory if it doesn't exist
 if [ ! -d "build" ]; then
     mkdir build
